@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
-import './style.scss';
 
 function Todo({ todo, onCompletedChange }) {
   return (
