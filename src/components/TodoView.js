@@ -1,14 +1,18 @@
+//TODO: POST実装
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
-function AddTodo({ onAddTodoChange, onNewTodoSubmit }) {
+function AddTodo({ onAddTodoChange, newTodo, onAddTodoClick }) {
   return (
     <div>
-      <input type="text" onChange={onAddTodoChange} />
-      <button type="submit" onSubmit={onNewTodoSubmit}>
-        Add Todo
-      </button>
+      <form method="post">
+        <input type="text" onChange={onAddTodoChange} value={newTodo} />
+        <button type="submit" onClick={onAddTodoClick}>
+          Add Todo
+        </button>
+      </form>
     </div>
   );
 }
@@ -49,6 +53,8 @@ class TodoView extends Component {
     super(props);
     this.state = { loaded: false, error: null, todos: [], newTodo: '' };
     this.url = 'https://5e6736691937020016fed762.mockapi.io/todos';
+    this.handleAddTodoChange = this.handleAddTodoChange.bind(this);
+    this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
     this.handleCompletedChange = this.handleCompletedChange.bind(this);
   }
 
@@ -65,6 +71,15 @@ class TodoView extends Component {
 
   componentDidMount() {
     this.loadTodos(this.url);
+  }
+
+  handleAddTodoChange(e) {
+    this.setState({ newTodo: e.target.value });
+  }
+
+  handleAddTodoClick(e) {
+    e.preventDefault();
+    console.log('Clicked!');
   }
 
   handleCompletedChange(e) {
@@ -85,10 +100,14 @@ class TodoView extends Component {
     } else
       return (
         <div>
-          <AddTodo />
+          <AddTodo
+            onAddTodoChange={this.handleAddTodoChange}
+            newTodo={this.state.newTodo}
+            onAddTodoClick={this.handleAddTodoClick}
+          />
           <TodoList
-            todos={this.state.todos}
             onCompletedChange={this.handleCompletedChange}
+            todos={this.state.todos}
           />
         </div>
       );
