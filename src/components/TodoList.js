@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
+function AddTodo({ onAddTodoChange, onNewTodoSubmit }) {
+  return (
+    <div>
+      <input type="text" onChange={onAddTodoChange} />
+      <button type="submit" onSubmit={onNewTodoSubmit}>Add Todo</button>
+    </div>
+  );
+}
+
 function Todo({ todo, onCompletedChange }) {
   return (
     <li>
@@ -26,7 +35,7 @@ function Todo({ todo, onCompletedChange }) {
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.state = { loaded: false, error: null, todos: [] };
+    this.state = { loaded: false, error: null, todos: [], newTodo: '' };
     this.url = 'https://5e6736691937020016fed762.mockapi.io/todos';
     this.handleCompletedChange = this.handleCompletedChange.bind(this);
   }
@@ -53,7 +62,7 @@ class TodoList extends Component {
       .put(`${this.url}/${changedId}`, { completed: checked })
       .then(result => {
         const changedTodo = result.data;
-        console.log(changedTodo);
+        console.log(`Updated ${changedTodo.text}.`)
         this.loadTodos(this.url);
       });
   }
@@ -63,15 +72,18 @@ class TodoList extends Component {
       return <div>Loading...</div>;
     } else
       return (
-        <ul>
-          {this.state.todos.map(todo => (
-            <Todo
-              todo={todo}
-              key={todo.id}
-              onCompletedChange={this.handleCompletedChange}
-            />
-          ))}
-        </ul>
+        <div>
+          <AddTodo />
+          <ul>
+            {this.state.todos.map(todo => (
+              <Todo
+                todo={todo}
+                key={todo.id}
+                onCompletedChange={this.handleCompletedChange}
+              />
+            ))}
+          </ul>
+        </div>
       );
   }
 }
