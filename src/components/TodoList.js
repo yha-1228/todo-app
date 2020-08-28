@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import classNames from 'classnames';
 import './style.scss';
 
 function Todo({ todo, onCompletedChange }) {
@@ -11,7 +12,12 @@ function Todo({ todo, onCompletedChange }) {
         onChange={onCompletedChange}
         data-id={todo.id}
       />{' '}
-      <span className={todo.completed ? 'line-through' : undefined}>
+      <span
+        className={classNames({
+          'line-through': todo.completed,
+          'text-lightgray': todo.completed,
+        })}
+      >
         {todo.text}
       </span>
     </li>
