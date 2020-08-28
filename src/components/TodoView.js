@@ -6,8 +6,20 @@ function AddTodo({ onAddTodoChange, onNewTodoSubmit }) {
   return (
     <div>
       <input type="text" onChange={onAddTodoChange} />
-      <button type="submit" onSubmit={onNewTodoSubmit}>Add Todo</button>
+      <button type="submit" onSubmit={onNewTodoSubmit}>
+        Add Todo
+      </button>
     </div>
+  );
+}
+
+function TodoList({ todos, onCompletedChange }) {
+  return (
+    <ul>
+      {todos.map(todo => (
+        <Todo todo={todo} onCompletedChange={onCompletedChange} key={todo.id} />
+      ))}
+    </ul>
   );
 }
 
@@ -32,7 +44,7 @@ function Todo({ todo, onCompletedChange }) {
   );
 }
 
-class TodoList extends Component {
+class TodoView extends Component {
   constructor(props) {
     super(props);
     this.state = { loaded: false, error: null, todos: [], newTodo: '' };
@@ -62,7 +74,7 @@ class TodoList extends Component {
       .put(`${this.url}/${changedId}`, { completed: checked })
       .then(result => {
         const changedTodo = result.data;
-        console.log(`Updated ${changedTodo.text}.`)
+        console.log(`Updated ${changedTodo.text}.`);
         this.loadTodos(this.url);
       });
   }
@@ -74,18 +86,13 @@ class TodoList extends Component {
       return (
         <div>
           <AddTodo />
-          <ul>
-            {this.state.todos.map(todo => (
-              <Todo
-                todo={todo}
-                key={todo.id}
-                onCompletedChange={this.handleCompletedChange}
-              />
-            ))}
-          </ul>
+          <TodoList
+            todos={this.state.todos}
+            onCompletedChange={this.handleCompletedChange}
+          />
         </div>
       );
   }
 }
 
-export default TodoList;
+export default TodoView;
