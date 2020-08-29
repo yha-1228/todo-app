@@ -1,24 +1,11 @@
-//TODO: POST実装
-
 import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
-function AddTodo({ onAddTodoChange, newTodoText, onAddTodoClick }) {
-  return (
-    <form method="post">
-      <input type="text" onChange={onAddTodoChange} value={newTodoText} />
-      <button type="submit" onClick={onAddTodoClick}>
-        Add Todo
-      </button>
-    </form>
-  );
-}
-
 function TodoList({ todos, onCompletedChange }) {
   return (
     <ul>
-      {[...todos].reverse().map(todo => (
+      {todos.map(todo => (
         <Todo todo={todo} onCompletedChange={onCompletedChange} key={todo.id} />
       ))}
     </ul>
@@ -44,6 +31,34 @@ function Todo({ todo, onCompletedChange }) {
       </span>
     </li>
   );
+}
+
+class AddTodo extends Component {
+  constructor(props) {
+    super(props);
+    this.inputTodoRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.inputTodoRef.current.focus();
+  }
+
+  render() {
+    return (
+      <form method="post">
+        <input
+          type="text"
+          onChange={this.props.onAddTodoChange}
+          value={this.props.newTodoText}
+          placeholder="Add item"
+          ref={this.addTodoRef}
+        />
+        <button type="submit" onClick={this.props.onAddTodoClick}>
+          Add
+        </button>
+      </form>
+    );
+  }
 }
 
 class TodoView extends Component {
@@ -109,21 +124,23 @@ class TodoView extends Component {
 
   render() {
     return (
-      <div>
-        <AddTodo
-          onAddTodoChange={this.handleAddTodoChange}
-          newTodoText={this.state.newTodoText}
-          onAddTodoClick={this.handleAddTodoClick}
-        />
+      <>
         {!this.state.loaded ? (
           <div>Loading...</div>
         ) : (
-          <TodoList
-            onCompletedChange={this.handleCompletedChange}
-            todos={this.state.todos}
-          />
+          <>
+            <TodoList
+              onCompletedChange={this.handleCompletedChange}
+              todos={this.state.todos}
+            />
+            <AddTodo
+              onAddTodoChange={this.handleAddTodoChange}
+              newTodoText={this.state.newTodoText}
+              onAddTodoClick={this.handleAddTodoClick}
+            />
+          </>
         )}
-      </div>
+      </>
     );
   }
 }
