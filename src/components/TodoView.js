@@ -103,22 +103,23 @@ class TodoView extends Component {
   }
 
   render() {
-    if (!this.state.loaded) {
-      return <div>Loading...</div>;
-    } else
-      return (
-        <div>
-          <AddTodo
-            onAddTodoChange={this.handleAddTodoChange}
-            newTodo={this.state.newTodoText}
-            onAddTodoClick={this.handleAddTodoClick}
-          />
+    return (
+      <div>
+        <AddTodo
+          onAddTodoChange={this.handleAddTodoChange}
+          newTodo={this.state.newTodoText}
+          onAddTodoClick={this.handleAddTodoClick}
+        />
+        {!this.state.loaded ? (
+          <div>Loading...</div>
+        ) : (
           <TodoList
             onCompletedChange={this.handleCompletedChange}
             todos={this.state.todos}
           />
-        </div>
-      );
+        )}
+      </div>
+    );
   }
 }
 
