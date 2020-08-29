@@ -77,15 +77,17 @@ class TodoView extends Component {
 
   handleAddTodoClick(e) {
     e.preventDefault();
+    console.log(this.state);
     axios
       .post(this.url, {
         id: '',
-        text: this.state.newTodoText,
+        text: (this.state.newTodoText).trim(),
         completed: false,
       })
       .then(result => {
         const addedTodo = result.data;
         console.log(`Added ${addedTodo.text}.`);
+        this.setState({ newTodoText: '' });
         this.loadTodos(this.url);
       });
   }
@@ -107,7 +109,7 @@ class TodoView extends Component {
       <div>
         <AddTodo
           onAddTodoChange={this.handleAddTodoChange}
-          newTodo={this.state.newTodoText}
+          newTodoText={this.state.newTodoText}
           onAddTodoClick={this.handleAddTodoClick}
         />
         {!this.state.loaded ? (
