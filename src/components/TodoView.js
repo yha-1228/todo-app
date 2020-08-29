@@ -4,16 +4,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
-function AddTodo({ onAddTodoChange, newTodo, onAddTodoClick }) {
+function AddTodo({ onAddTodoChange, newTodoText, onAddTodoClick }) {
   return (
-    <div>
-      <form method="post">
-        <input type="text" onChange={onAddTodoChange} value={newTodo} />
-        <button type="submit" onClick={onAddTodoClick}>
-          Add Todo
-        </button>
-      </form>
-    </div>
+    <form method="post">
+      <input type="text" onChange={onAddTodoChange} value={newTodoText} />
+      <button type="submit" onClick={onAddTodoClick}>
+        Add Todo
+      </button>
+    </form>
   );
 }
 
@@ -51,7 +49,7 @@ function Todo({ todo, onCompletedChange }) {
 class TodoView extends Component {
   constructor(props) {
     super(props);
-    this.state = { loaded: false, error: null, todos: [], newTodo: '' };
+    this.state = { loaded: false, error: null, todos: [], newTodoText: '' };
     this.url = 'https://5e6736691937020016fed762.mockapi.io/todos';
     this.handleAddTodoChange = this.handleAddTodoChange.bind(this);
     this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
@@ -74,12 +72,22 @@ class TodoView extends Component {
   }
 
   handleAddTodoChange(e) {
-    this.setState({ newTodo: e.target.value });
+    this.setState({ newTodoText: e.target.value });
   }
 
   handleAddTodoClick(e) {
     e.preventDefault();
-    console.log('Clicked!');
+    axios
+      .post(this.url, {
+        id: '',
+        text: this.state.newTodoText,
+        completed: false,
+      })
+      .then(result => {
+        const addedTodo = result.data;
+        console.log(`Added ${addedTodo.text}.`);
+        this.loadTodos(this.url);
+      });
   }
 
   handleCompletedChange(e) {
@@ -102,7 +110,7 @@ class TodoView extends Component {
         <div>
           <AddTodo
             onAddTodoChange={this.handleAddTodoChange}
-            newTodo={this.state.newTodo}
+            newTodo={this.state.newTodoText}
             onAddTodoClick={this.handleAddTodoClick}
           />
           <TodoList
