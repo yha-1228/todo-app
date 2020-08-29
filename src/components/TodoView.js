@@ -37,17 +37,10 @@ class AddTodo extends Component {
   constructor(props) {
     super(props);
     this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
-    this.todoInputRef = React.createRef();
-    this.focusTodoInput = this.focusTodoInput.bind(this);
   }
 
   handleAddTodoClick(e) {
     this.props.onAddTodoClick(e);
-    this.focusTodoInput();
-  }
-
-  focusTodoInput() {
-    this.todoInputRef.current.focus();
   }
 
   render() {
@@ -58,7 +51,7 @@ class AddTodo extends Component {
           onChange={this.props.onAddTodoChange}
           value={this.props.newTodoText}
           placeholder="Add item"
-          ref={this.todoInputRef}
+          ref={this.props.todoInputRef}
         />
         <button type="submit" onClick={this.handleAddTodoClick}>
           Add
@@ -73,6 +66,7 @@ class TodoView extends Component {
     super(props);
     this.state = { loaded: false, error: null, todos: [], newTodoText: '' };
     this.url = 'https://5e6736691937020016fed762.mockapi.io/todos';
+    this.todoInputRef = React.createRef();
     this.handleAddTodoChange = this.handleAddTodoChange.bind(this);
     this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
     this.handleCompletedChange = this.handleCompletedChange.bind(this);
@@ -109,12 +103,17 @@ class TodoView extends Component {
       return;
     }
 
-    axios.post(this.url, newTodo).then(result => {
-      const addedTodo = result.data;
-      console.log(`Added ${addedTodo.text}.`);
-      this.setState({ newTodoText: '' });
-      this.loadTodos(this.url);
-    });
+    axios
+      .post(this.url, newTodo)
+      .then(result => {
+        const addedTodo = result.data;
+        console.log(`Added ${addedTodo.text}.`);
+        this.setState({ newTodoText: '' });
+        this.loadTodos(this.url);
+      })
+      .then(() => {
+        this.todoInputRef.current.focus();
+      });
   }
 
   handleCompletedChange(e) {
@@ -144,6 +143,7 @@ class TodoView extends Component {
               onAddTodoChange={this.handleAddTodoChange}
               newTodoText={this.state.newTodoText}
               onAddTodoClick={this.handleAddTodoClick}
+              todoInputRef={this.todoInputRef}
             />
           </>
         )}
