@@ -18,7 +18,7 @@ function AddTodo({ onAddTodoChange, newTodoText, onAddTodoClick }) {
 function TodoList({ todos, onCompletedChange }) {
   return (
     <ul>
-      {todos.map(todo => (
+      {[...todos].reverse().map(todo => (
         <Todo todo={todo} onCompletedChange={onCompletedChange} key={todo.id} />
       ))}
     </ul>
@@ -77,14 +77,14 @@ class TodoView extends Component {
 
   handleAddTodoClick(e) {
     e.preventDefault();
-    console.log(this.state);
-    axios
-      .post(this.url, {
-        id: '',
-        text: (this.state.newTodoText).trim(),
-        completed: false,
-      })
-      .then(result => {
+    const newTodo = {
+      id: null,
+      text: this.state.newTodoText.trim(),
+      completed: false,
+    };
+
+    if (newTodo.text === '')
+      axios.post(this.url, newTodo).then(result => {
         const addedTodo = result.data;
         console.log(`Added ${addedTodo.text}.`);
         this.setState({ newTodoText: '' });
