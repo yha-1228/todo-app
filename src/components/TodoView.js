@@ -36,11 +36,18 @@ function Todo({ todo, onCompletedChange }) {
 class AddTodo extends Component {
   constructor(props) {
     super(props);
-    this.inputTodoRef = React.createRef();
+    this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
+    this.todoInputRef = React.createRef();
+    this.focusTodoInput = this.focusTodoInput.bind(this);
   }
 
-  componentDidMount() {
-    this.inputTodoRef.current.focus();
+  handleAddTodoClick(e) {
+    this.props.onAddTodoClick(e);
+    this.focusTodoInput();
+  }
+
+  focusTodoInput() {
+    this.todoInputRef.current.focus();
   }
 
   render() {
@@ -51,9 +58,9 @@ class AddTodo extends Component {
           onChange={this.props.onAddTodoChange}
           value={this.props.newTodoText}
           placeholder="Add item"
-          ref={this.addTodoRef}
+          ref={this.todoInputRef}
         />
-        <button type="submit" onClick={this.props.onAddTodoClick}>
+        <button type="submit" onClick={this.handleAddTodoClick}>
           Add
         </button>
       </form>
