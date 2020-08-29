@@ -83,13 +83,16 @@ class TodoView extends Component {
       completed: false,
     };
 
-    if (newTodo.text === '')
-      axios.post(this.url, newTodo).then(result => {
-        const addedTodo = result.data;
-        console.log(`Added ${addedTodo.text}.`);
-        this.setState({ newTodoText: '' });
-        this.loadTodos(this.url);
-      });
+    if (newTodo.text.length === 0) {
+      return;
+    }
+
+    axios.post(this.url, newTodo).then(result => {
+      const addedTodo = result.data;
+      console.log(`Added ${addedTodo.text}.`);
+      this.setState({ newTodoText: '' });
+      this.loadTodos(this.url);
+    });
   }
 
   handleCompletedChange(e) {
