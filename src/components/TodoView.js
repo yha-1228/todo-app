@@ -23,8 +23,7 @@ const Todo = ({ todo, onCompletedChange }) => {
       />{' '}
       <span
         className={classNames(
-          { 'line-through': todo.completed },
-          { 'text-gray-500': todo.completed }
+          todo.completed && ['line-through', 'text-gray-600']
         )}
       >
         {todo.text}
@@ -119,13 +118,11 @@ class TodoView extends Component {
   handleCompletedChange(e) {
     const checked = e.target.checked;
     const id = e.target.dataset.id;
-    axios
-      .put(`${this.url}/${id}`, { completed: checked })
-      .then((result) => {
-        const changedTodo = result.data;
-        console.log(`Updated ${changedTodo.text}.`);
-        this.loadTodos(this.url);
-      });
+    axios.put(`${this.url}/${id}`, { completed: checked }).then((result) => {
+      const changedTodo = result.data;
+      console.log(`Updated ${changedTodo.text}.`);
+      this.loadTodos(this.url);
+    });
   }
 
   render() {
