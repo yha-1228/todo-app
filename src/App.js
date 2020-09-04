@@ -1,14 +1,26 @@
 import React from 'react';
-import './App.scss';
+import './tailwind.output.css';
+import Container from './components/Container';
+import Main from './components/Main';
+import HeadingLv1 from './components/HeadingLv1';
+import RoundedBox from './components/RoundedBox';
 import TodoView from './components/TodoView';
 
-function App() {
+// TODO: モバイル前提として再設計する
+
+const App = () => {
   return (
-    <div>
-      <h1>Todo App</h1>
-      <TodoView />
-    </div>
+    <Main>
+      <Container>
+        <section className="py-8">
+          <HeadingLv1>Todo list</HeadingLv1>
+          <RoundedBox>
+            <TodoView />
+          </RoundedBox>
+        </section>
+      </Container>
+    </Main>
   );
-}
+};
 
 export default App;

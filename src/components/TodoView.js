@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
-function TodoList({ todos, onCompletedChange }) {
+const TodoList = ({ todos, onCompletedChange }) => {
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <Todo todo={todo} onCompletedChange={onCompletedChange} key={todo.id} />
       ))}
     </ul>
   );
-}
+};
 
-function Todo({ todo, onCompletedChange }) {
+const Todo = ({ todo, onCompletedChange }) => {
   return (
     <li>
       <input
@@ -21,17 +21,12 @@ function Todo({ todo, onCompletedChange }) {
         onChange={onCompletedChange}
         data-id={todo.id}
       />{' '}
-      <span
-        className={classNames({
-          'line-through': todo.completed,
-          'text-lightgray': todo.completed,
-        })}
-      >
+      <span className={classNames({ 'line-through': todo.completed })}>
         {todo.text}
       </span>
     </li>
   );
-}
+};
 
 class AddTodo extends Component {
   constructor(props) {
@@ -75,10 +70,10 @@ class TodoView extends Component {
   loadTodos(url) {
     axios
       .get(url)
-      .then(result => {
+      .then((result) => {
         this.setState({ loaded: true, error: null, todos: result.data });
       })
-      .catch(result => {
+      .catch((result) => {
         this.setState({ loaded: true, error: result, todos: [] });
       });
   }
@@ -105,7 +100,7 @@ class TodoView extends Component {
 
     axios
       .post(this.url, newTodo)
-      .then(result => {
+      .then((result) => {
         const addedTodo = result.data;
         console.log(`Added ${addedTodo.text}.`);
         this.setState({ newTodoText: '' });
@@ -121,7 +116,7 @@ class TodoView extends Component {
     const changedId = e.target.dataset.id;
     axios
       .put(`${this.url}/${changedId}`, { completed: checked })
-      .then(result => {
+      .then((result) => {
         const changedTodo = result.data;
         console.log(`Updated ${changedTodo.text}.`);
         this.loadTodos(this.url);
@@ -132,21 +127,19 @@ class TodoView extends Component {
     return (
       <>
         {!this.state.loaded ? (
-          <div>Loading...</div>
+          <p>Loading...</p>
         ) : (
-          <>
-            <TodoList
-              onCompletedChange={this.handleCompletedChange}
-              todos={this.state.todos}
-            />
-            <AddTodo
-              onAddTodoChange={this.handleAddTodoChange}
-              newTodoText={this.state.newTodoText}
-              onAddTodoClick={this.handleAddTodoClick}
-              todoInputRef={this.todoInputRef}
-            />
-          </>
+          <TodoList
+            onCompletedChange={this.handleCompletedChange}
+            todos={this.state.todos}
+          />
         )}
+        <AddTodo
+          onAddTodoChange={this.handleAddTodoChange}
+          newTodoText={this.state.newTodoText}
+          onAddTodoClick={this.handleAddTodoClick}
+          todoInputRef={this.todoInputRef}
+        />
       </>
     );
   }
