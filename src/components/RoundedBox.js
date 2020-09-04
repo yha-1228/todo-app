@@ -10,7 +10,7 @@ const RoundedBox = ({ children }) => {
         'rounded-lg',
         'border',
         'border-solid',
-        'border-gray-900'
+        'border-gray-400'
       )}
     >
       {children}
