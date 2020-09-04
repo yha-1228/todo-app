@@ -10366,7 +10366,7 @@ video {
 }
 
 .leading-normal {
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 .leading-relaxed {
@@ -32004,7 +32004,7 @@ video {
   }
 
   .sm\:leading-normal {
-    line-height: 1.7;
+    line-height: 1.5;
   }
 
   .sm\:leading-relaxed {
@@ -53577,7 +53577,7 @@ video {
   }
 
   .md\:leading-normal {
-    line-height: 1.7;
+    line-height: 1.5;
   }
 
   .md\:leading-relaxed {
@@ -75150,7 +75150,7 @@ video {
   }
 
   .lg\:leading-normal {
-    line-height: 1.7;
+    line-height: 1.5;
   }
 
   .lg\:leading-relaxed {
@@ -96723,7 +96723,7 @@ video {
   }
 
   .xl\:leading-normal {
-    line-height: 1.7;
+    line-height: 1.5;
   }
 
   .xl\:leading-relaxed {

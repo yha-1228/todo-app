@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import './tailwind.output.css';
 import Container from './components/Container';
 import Main from './components/Main';
@@ -12,7 +13,7 @@ const App = () => {
   return (
     <Main>
       <Container>
-        <section className="py-8">
+        <section className={classNames('py-8')}>
           <HeadingLv1>Todo list</HeadingLv1>
           <RoundedBox>
             <TodoView />

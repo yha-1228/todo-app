@@ -21,7 +21,12 @@ const Todo = ({ todo, onCompletedChange }) => {
         onChange={onCompletedChange}
         data-id={todo.id}
       />{' '}
-      <span className={classNames({ 'line-through': todo.completed })}>
+      <span
+        className={classNames(
+          { 'line-through': todo.completed },
+          { 'text-gray-500': todo.completed }
+        )}
+      >
         {todo.text}
       </span>
     </li>
@@ -113,9 +118,9 @@ class TodoView extends Component {
 
   handleCompletedChange(e) {
     const checked = e.target.checked;
-    const changedId = e.target.dataset.id;
+    const id = e.target.dataset.id;
     axios
-      .put(`${this.url}/${changedId}`, { completed: checked })
+      .put(`${this.url}/${id}`, { completed: checked })
       .then((result) => {
         const changedTodo = result.data;
         console.log(`Updated ${changedTodo.text}.`);
