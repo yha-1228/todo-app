@@ -5,12 +5,13 @@ const RoundedBox = ({ children }) => {
   return (
     <div
       className={classNames(
-        'w-1/3',
         'p-4',
+        'bg-white',
         'rounded-lg',
         'border',
         'border-solid',
-        'border-gray-400'
+        'border-gray-200',
+        'text-xl'
       )}
     >
       {children}

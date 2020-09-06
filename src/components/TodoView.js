@@ -23,7 +23,7 @@ const Todo = ({ todo, onCompletedChange }) => {
       />{' '}
       <span
         className={classNames(
-          todo.completed && ['line-through', 'text-gray-600']
+          todo.completed && ['line-through', 'text-gray-500']
         )}
       >
         {todo.text}
