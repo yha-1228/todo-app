@@ -14,7 +14,6 @@
     "react-scripts": "3.4.3",
     "tailwindcss": "^1.7.6"
   },
-  "homepage": "https://yha-1228.github.io/todo-app/",
   "scripts": {
     "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
     "prestart": "npm run build:tailwind",
