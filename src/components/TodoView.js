@@ -2,15 +2,65 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
-const TodoList = ({ todos, onCompletedChange }) => {
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <Todo todo={todo} onCompletedChange={onCompletedChange} key={todo.id} />
-      ))}
-    </ul>
-  );
-};
+class AddTodo extends Component {
+  constructor(props) {
+    super(props);
+    this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
+  }
+
+  handleAddTodoClick(e) {
+    this.props.onAddTodoClick(e);
+  }
+
+  render() {
+    return (
+      <form method="post">
+        <div className={classNames('inline-block', 'pr-3')}>
+          <input
+            className={classNames(
+              'py-2',
+              'px-4',
+              'bg-gray-200',
+              'border-2',
+              'border-solid',
+              'border-gray-200',
+              'rounded',
+              'focus:outline-none',
+              'focus:bg-white',
+              'focus:border-apple-default-blue'
+            )}
+            type="text"
+            onChange={this.props.onAddTodoChange}
+            value={this.props.newTodoText}
+            placeholder="Add item"
+            ref={this.props.todoInputRef}
+          />
+        </div>
+        <div className={classNames('inline-block')}>
+          <button
+            className={classNames(
+              'py-2',
+              'px-4',
+              'bg-transparent',
+              'border-2',
+              'border-solid',
+              'border-gray-900',
+              'rounded',
+              'hover:bg-apple-default-blue',
+              'focus:outline-none',
+              'focus:bg-white',
+              'focus:border-apple-default-blue'
+            )}
+            type="submit"
+            onClick={this.handleAddTodoClick}
+          >
+            Add
+          </button>
+        </div>
+      </form>
+    );
+  }
+}
 
 const Todo = ({ todo, onCompletedChange }) => {
   return (
@@ -32,33 +82,15 @@ const Todo = ({ todo, onCompletedChange }) => {
   );
 };
 
-class AddTodo extends Component {
-  constructor(props) {
-    super(props);
-    this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
-  }
-
-  handleAddTodoClick(e) {
-    this.props.onAddTodoClick(e);
-  }
-
-  render() {
-    return (
-      <form method="post">
-        <input
-          type="text"
-          onChange={this.props.onAddTodoChange}
-          value={this.props.newTodoText}
-          placeholder="Add item"
-          ref={this.props.todoInputRef}
-        />
-        <button type="submit" onClick={this.handleAddTodoClick}>
-          Add
-        </button>
-      </form>
-    );
-  }
-}
+const TodoList = ({ todos, onCompletedChange }) => {
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <Todo todo={todo} onCompletedChange={onCompletedChange} key={todo.id} />
+      ))}
+    </ul>
+  );
+};
 
 class TodoView extends Component {
   constructor(props) {

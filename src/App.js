@@ -8,7 +8,7 @@ import TodoView from './components/TodoView';
 
 const App = () => {
   return (
-    <div className={classNames('bg-gray-100', 'leading-normal')}>
+    <div className={classNames('min-h-screen', 'bg-gray-100', 'leading-normal')}>
       <header className={classNames("py-2", 'bg-apple-default-blue', 'text-white')}>
         <Container>
           <Title>Todo list</Title>
