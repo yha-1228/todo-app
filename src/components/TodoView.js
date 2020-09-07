@@ -1,22 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
-
-const List = ({ children }) => {
-  return (
-    <div
-      style={{ lineHeight: '32px' }}
-      className={classNames(
-        'py-1',
-        'border-solid',
-        'border-b',
-        'border-gray-500'
-      )}
-    >
-      {children}
-    </div>
-  );
-};
+import List from './List';
 
 class AddTodo extends Component {
   constructor(props) {
