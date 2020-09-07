@@ -20,7 +20,7 @@ class AddTodo extends Component {
           <div className={classNames('inline-block', 'pr-3')}>
             <input
               className={classNames(
-                'px-4',
+                'px-2',
                 'bg-gray-200',
                 'border-2',
                 'border-solid',
