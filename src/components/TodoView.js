@@ -2,6 +2,22 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
+const List = ({ children }) => {
+  return (
+    <div
+      style={{ lineHeight: '32px' }}
+      className={classNames(
+        'py-1',
+        'border-solid',
+        'border-b',
+        'border-gray-500'
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+
 class AddTodo extends Component {
   constructor(props) {
     super(props);
@@ -14,50 +30,52 @@ class AddTodo extends Component {
 
   render() {
     return (
-      <form method="post">
-        <div className={classNames('inline-block', 'pr-3')}>
-          <input
-            className={classNames(
-              'py-2',
-              'px-4',
-              'bg-gray-200',
-              'border-2',
-              'border-solid',
-              'border-gray-200',
-              'rounded',
-              'focus:outline-none',
-              'focus:bg-white',
-              'focus:border-apple-default-blue'
-            )}
-            type="text"
-            onChange={this.props.onAddTodoChange}
-            value={this.props.newTodoText}
-            placeholder="Add item"
-            ref={this.props.todoInputRef}
-          />
-        </div>
-        <div className={classNames('inline-block')}>
-          <button
-            className={classNames(
-              'py-2',
-              'px-4',
-              'bg-transparent',
-              'border-2',
-              'border-solid',
-              'border-gray-900',
-              'rounded',
-              'hover:bg-apple-default-blue',
-              'focus:outline-none',
-              'focus:bg-white',
-              'focus:border-apple-default-blue'
-            )}
-            type="submit"
-            onClick={this.handleAddTodoClick}
-          >
-            Add
-          </button>
-        </div>
-      </form>
+      <List>
+        <form method="post">
+          <div className={classNames('inline-block', 'pr-3')}>
+            <input
+              className={classNames(
+                'px-4',
+                'bg-gray-200',
+                'border-2',
+                'border-solid',
+                'border-gray-200',
+                'rounded',
+                'focus:outline-none',
+                'focus:bg-white',
+                'focus:border-apple-default-blue'
+              )}
+              type="text"
+              onChange={this.props.onAddTodoChange}
+              value={this.props.newTodoText}
+              placeholder="Add item"
+              ref={this.props.todoInputRef}
+            />
+          </div>
+          <div className={classNames('inline-block')}>
+            <button
+              className={classNames(
+                'px-4',
+                'bg-gray-900',
+                'text-white',
+                'border-2',
+                'border-solid',
+                'border-gray-900',
+                'rounded',
+                'hover:bg-transparent',
+                'hover:text-gray-900',
+                'focus:outline-none',
+                'focus:bg-transparent',
+                'focus:text-gray-900'
+              )}
+              type="submit"
+              onClick={this.handleAddTodoClick}
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </List>
     );
   }
 }
@@ -65,19 +83,21 @@ class AddTodo extends Component {
 const Todo = ({ todo, onCompletedChange }) => {
   return (
     <li>
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        onChange={onCompletedChange}
-        data-id={todo.id}
-      />{' '}
-      <span
-        className={classNames(
-          todo.completed && ['line-through', 'text-gray-500']
-        )}
-      >
-        {todo.text}
-      </span>
+      <List>
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={onCompletedChange}
+          data-id={todo.id}
+        />{' '}
+        <span
+          className={classNames(
+            todo.completed && ['line-through', 'text-gray-500']
+          )}
+        >
+          {todo.text}
+        </span>
+      </List>
     </li>
   );
 };

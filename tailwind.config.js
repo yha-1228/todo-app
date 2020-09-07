@@ -3,12 +3,9 @@
 module.exports = {
   purge: ['./src/**/*.js'],
   theme: {
-    lineHeight: {
-      normal: 1.65,
-    },
     extend: {
       colors: {
-        'apple-default-blue': 'rgb(0, 122, 255)'
+        'apple-default-blue': 'rgb(0, 122, 255)',
       },
     },
   },

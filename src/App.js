@@ -3,12 +3,12 @@ import './tailwind.output.css';
 import classNames from 'classnames';
 import Container from './components/Container';
 import Title from './components/Title';
-import RoundedBox from './components/RoundedBox';
+import Box from './components/Box';
 import TodoView from './components/TodoView';
 
 const App = () => {
   return (
-    <div className={classNames('min-h-screen', 'bg-gray-100', 'leading-normal')}>
+    <div className={classNames('min-h-screen', 'bg-gray-100')}>
       <header className={classNames("py-2", 'bg-apple-default-blue', 'text-white')}>
         <Container>
           <Title>Todo list</Title>
@@ -18,9 +18,9 @@ const App = () => {
       <main>
         <Container>
           <section className={classNames('py-5')}>
-            <RoundedBox>
+            <Box>
               <TodoView />
-            </RoundedBox>
+            </Box>
           </section>
         </Container>
       </main>
