@@ -17,11 +17,11 @@ const App = () => {
 
       <main>
         <Container>
-          <section className={classNames('py-3')}>
+          <div className={classNames('py-3')}>
             <Box>
               <TodoView />
             </Box>
-          </section>
+          </div>
         </Container>
       </main>
     </div>
