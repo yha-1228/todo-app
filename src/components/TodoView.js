@@ -144,8 +144,10 @@ class TodoView extends Component {
       .then((result) => {
         const addedTodo = result.data;
         console.log(`Added ${addedTodo.text}.`);
-        this.setState({ newTodoText: '' });
-        this.loadTodos(this.url);
+        this.setState({
+          todos: [...this.state.todos, newTodo],
+          newTodoText: '',
+        });
       })
       .then(() => {
         this.todoInputRef.current.focus();
