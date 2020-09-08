@@ -91,7 +91,7 @@ const TodoList = ({ todos, onCompletedChange }) => {
   return (
     <ul>
       {todos.map((todo) => (
-        <Todo todo={todo} onCompletedChange={onCompletedChange} key={todo.id} />
+        <Todo key={todo.id} todo={todo} onCompletedChange={onCompletedChange} />
       ))}
     </ul>
   );
@@ -145,7 +145,7 @@ class TodoView extends Component {
         const addedTodo = result.data;
         console.log(`Added ${addedTodo.text}.`);
         this.setState({
-          todos: [...this.state.todos, newTodo],
+          todos: [...this.state.todos, addedTodo],
           newTodoText: '',
         });
       })
@@ -160,7 +160,7 @@ class TodoView extends Component {
     axios.put(`${this.url}/${id}`, { completed: checked }).then((result) => {
       const changedTodo = result.data;
       console.log(`Updated ${changedTodo.text}.`);
-      this.loadTodos(this.url);
+      // this.loadTodos(this.url);
     });
   }
 
