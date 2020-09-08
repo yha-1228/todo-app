@@ -143,7 +143,6 @@ class TodoView extends Component {
       .post(this.url, newTodo)
       .then((result) => {
         const addedTodo = result.data;
-        console.log(`Added ${addedTodo.text}.`);
         this.setState({
           todos: [...this.state.todos, addedTodo],
           newTodoText: '',
@@ -158,9 +157,11 @@ class TodoView extends Component {
     const checked = e.target.checked;
     const id = e.target.dataset.id;
     axios.put(`${this.url}/${id}`, { completed: checked }).then((result) => {
-      const changedTodo = result.data;
-      console.log(`Updated ${changedTodo.text}.`);
-      // this.loadTodos(this.url);
+      const copiedTodos = [...this.state.todos];
+      copiedTodos.forEach((todo) => {
+        if (todo.id === id) todo.completed = checked;
+      });
+      this.setState({ todos: copiedTodos });
     });
   }
 
