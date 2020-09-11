@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const List = ({ children }) => {
+const List: React.FC = ({ children }) => {
   return (
     <div
       style={{ lineHeight: '32px' }}

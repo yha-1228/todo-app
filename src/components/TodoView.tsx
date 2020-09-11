@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
+import { Todos, Todo } from './data';
 import List from './List';
 
-class AddTodo extends Component {
-  constructor(props) {
+type AddTodoProps = {
+  onAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onAddTodoClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  newTodoText: string;
+  todoInputRef: any;
+};
+
+type AddTodoState = {};
+
+class AddTodo extends Component<AddTodoProps, AddTodoState> {
+  constructor(props: Readonly<AddTodoProps>) {
     super(props);
     this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
   }
 
-  handleAddTodoClick(e) {
+  handleAddTodoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     this.props.onAddTodoClick(e);
   }
 
@@ -65,7 +75,12 @@ class AddTodo extends Component {
   }
 }
 
-const Todo = ({ todo, onCompletedChange }) => {
+type TodoItemProps = {
+  todo: Todo;
+  onCompletedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
   return (
     <li>
       <List>
@@ -87,18 +102,42 @@ const Todo = ({ todo, onCompletedChange }) => {
   );
 };
 
-const TodoList = ({ todos, onCompletedChange }) => {
+type TodoListProps = {
+  todos: Todos;
+  onCompletedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const TodoList: React.FC<TodoListProps> = ({ todos, onCompletedChange }) => {
   return (
     <ul>
       {todos.map((todo) => (
-        <Todo key={todo.id} todo={todo} onCompletedChange={onCompletedChange} />
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onCompletedChange={onCompletedChange}
+        />
       ))}
     </ul>
   );
 };
 
-class TodoView extends Component {
-  constructor(props) {
+type TodoViewProps = {};
+
+type TodoViewState = {
+  loaded: boolean;
+  error: any;
+  todos: Todos;
+  newTodoText: string;
+};
+
+class TodoView extends Component<TodoViewProps, TodoViewState> {
+  url: string;
+  todoInputRef: any;
+  // handleAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  // handleAddTodoClick: (event: React.MouseEvent<HTMLInputElement>) => void;
+  // handleCompletedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
+  constructor(props: Readonly<TodoViewProps>) {
     super(props);
     this.state = { loaded: false, error: null, todos: [], newTodoText: '' };
     this.url = 'https://5e6736691937020016fed762.mockapi.io/todos';
@@ -108,7 +147,7 @@ class TodoView extends Component {
     this.handleCompletedChange = this.handleCompletedChange.bind(this);
   }
 
-  loadTodos(url) {
+  loadTodos(url: string) {
     axios
       .get(url)
       .then((result) => {
@@ -123,11 +162,11 @@ class TodoView extends Component {
     this.loadTodos(this.url);
   }
 
-  handleAddTodoChange(e) {
-    this.setState({ newTodoText: e.target.value });
+  handleAddTodoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ newTodoText: e.currentTarget.value });
   }
 
-  handleAddTodoClick(e) {
+  handleAddTodoClick(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     const newTodo = {
       id: null,
@@ -153,9 +192,9 @@ class TodoView extends Component {
       });
   }
 
-  handleCompletedChange(e) {
-    const checked = e.target.checked;
-    const id = e.target.dataset.id;
+  handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const checked = e.currentTarget.checked;
+    const id = e.currentTarget.dataset.id;
     axios.put(`${this.url}/${id}`, { completed: checked }).then((result) => {
       const copiedTodos = [...this.state.todos];
       copiedTodos.forEach((todo) => {

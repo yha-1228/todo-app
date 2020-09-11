@@ -6,7 +6,7 @@ import Title from './components/Title';
 import Box from './components/Box';
 import TodoView from './components/TodoView';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div className={classNames('min-h-screen')}>
       <header className={classNames('pt-5', 'pb-2')}>
