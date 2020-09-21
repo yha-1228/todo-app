@@ -17,11 +17,9 @@ const App: React.FC = () => {
 
       <main>
         <Container>
-          <div className={classNames('')}>
-            <Box>
-              <TodoView />
-            </Box>
-          </div>
+          <Box>
+            <TodoView />
+          </Box>
         </Container>
       </main>
     </div>
