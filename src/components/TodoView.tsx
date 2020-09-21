@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
-import { Todos, Todo } from './data';
+import { Todos, Todo } from '../interfaces/index';
 import List from './List';
 
 type AddTodoProps = {
