@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import classNames from 'classnames';
-import { Todos, Todo } from '../interfaces/index';
-import List from './List';
+import React from "react";
+import axios from "axios";
+import classNames from "classnames";
+import { Todos, Todo } from "../interfaces/index";
+import List from "./List";
+import Button from "./Button";
+import TextField from "./TextField";
 
 type AddTodoProps = {
   onAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -13,7 +15,7 @@ type AddTodoProps = {
 
 type AddTodoState = {};
 
-class AddTodo extends Component<AddTodoProps, AddTodoState> {
+class AddTodo extends React.Component<AddTodoProps, AddTodoState> {
   constructor(props: Readonly<AddTodoProps>) {
     super(props);
     this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
@@ -27,47 +29,18 @@ class AddTodo extends Component<AddTodoProps, AddTodoState> {
     return (
       <List>
         <form method="post">
-          <div className={classNames('inline-block', 'pr-3')}>
-            <input
-              className={classNames(
-                'px-2',
-                'bg-gray-200',
-                'border-2',
-                'border-solid',
-                'border-gray-200',
-                'rounded',
-                'focus:outline-none',
-                'focus:bg-white',
-                'focus:border-apple-default-blue'
-              )}
-              type="text"
+          <div className={classNames("inline-block", "pr-3")}>
+            <TextField
               onChange={this.props.onAddTodoChange}
               value={this.props.newTodoText}
               placeholder="Add item"
               ref={this.props.todoInputRef}
             />
           </div>
-          <div className={classNames('inline-block')}>
-            <button
-              className={classNames(
-                'px-4',
-                'bg-gray-900',
-                'text-white',
-                'border-2',
-                'border-solid',
-                'border-gray-900',
-                'rounded',
-                'hover:bg-transparent',
-                'hover:text-gray-900',
-                'focus:outline-none',
-                'focus:bg-transparent',
-                'focus:text-gray-900'
-              )}
-              type="submit"
-              onClick={this.handleAddTodoClick}
-            >
+          <div className={classNames("inline-block")}>
+            <Button type="submit" onClick={this.handleAddTodoClick}>
               Add
-            </button>
+            </Button>
           </div>
         </form>
       </List>
@@ -89,12 +62,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
           checked={todo.completed}
           onChange={onCompletedChange}
           data-id={todo.id}
-        />{' '}
-        <span
-          className={classNames(
-            todo.completed && ['line-through', 'text-gray-500']
-          )}
-        >
+        />{" "}
+        <span className={classNames(todo.completed && ["line-through", "text-gray-500"])}>
           {todo.text}
         </span>
       </List>
@@ -111,11 +80,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onCompletedChange }) => {
   return (
     <ul>
       {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          onCompletedChange={onCompletedChange}
-        />
+        <TodoItem key={todo.id} todo={todo} onCompletedChange={onCompletedChange} />
       ))}
     </ul>
   );
@@ -123,25 +88,17 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onCompletedChange }) => {
 
 type TodoViewProps = {};
 
-type TodoViewState = {
-  loaded: boolean;
-  error: any;
-  todos: Todos;
-  newTodoText: string;
-};
+type TodoViewState = { loaded: boolean; error: any; todos: Todos; newTodoText: string };
 
-class TodoView extends Component<TodoViewProps, TodoViewState> {
+class TodoView extends React.Component<TodoViewProps, TodoViewState> {
   url: string;
-  todoInputRef: any;
-  // handleAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // handleAddTodoClick: (event: React.MouseEvent<HTMLInputElement>) => void;
-  // handleCompletedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  todoInputRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: Readonly<TodoViewProps>) {
     super(props);
-    this.state = { loaded: false, error: null, todos: [], newTodoText: '' };
-    this.url = 'https://5e6736691937020016fed762.mockapi.io/todos';
-    this.todoInputRef = React.createRef();
+    this.state = { loaded: false, error: null, todos: [], newTodoText: "" };
+    this.url = "https://5e6736691937020016fed762.mockapi.io/todos";
+    this.todoInputRef = React.createRef<HTMLInputElement>();
     this.handleAddTodoChange = this.handleAddTodoChange.bind(this);
     this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
     this.handleCompletedChange = this.handleCompletedChange.bind(this);
@@ -168,11 +125,7 @@ class TodoView extends Component<TodoViewProps, TodoViewState> {
 
   handleAddTodoClick(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    const newTodo = {
-      id: null,
-      text: this.state.newTodoText.trim(),
-      completed: false,
-    };
+    const newTodo = { id: null, text: this.state.newTodoText.trim(), completed: false };
 
     if (newTodo.text.length === 0) {
       return;
@@ -182,13 +135,10 @@ class TodoView extends Component<TodoViewProps, TodoViewState> {
       .post(this.url, newTodo)
       .then((result) => {
         const addedTodo = result.data;
-        this.setState({
-          todos: [...this.state.todos, addedTodo],
-          newTodoText: '',
-        });
+        this.setState({ todos: [...this.state.todos, addedTodo], newTodoText: "" });
       })
       .then(() => {
-        this.todoInputRef.current.focus();
+        this.todoInputRef.current && this.todoInputRef.current.focus();
       });
   }
 
@@ -210,10 +160,7 @@ class TodoView extends Component<TodoViewProps, TodoViewState> {
         {!this.state.loaded ? (
           <p>Loading...</p>
         ) : (
-          <TodoList
-            onCompletedChange={this.handleCompletedChange}
-            todos={this.state.todos}
-          />
+          <TodoList onCompletedChange={this.handleCompletedChange} todos={this.state.todos} />
         )}
         <AddTodo
           onAddTodoChange={this.handleAddTodoChange}
