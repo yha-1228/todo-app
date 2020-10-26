@@ -5,8 +5,9 @@ import { Todos, Todo } from "../interfaces/index";
 import List from "./List";
 import Button from "./Button";
 import TextField from "./TextField";
-import Checkbox from "./Checkbox";
 import { TODO_URL } from "../application.properties";
+import TheCheckbox from "./TheCheckbox";
+import Checkbox from "@material-ui/core/Checkbox";
 
 type AddTodoProps = {
   onAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -52,23 +53,17 @@ class AddTodo extends React.Component<AddTodoProps, AddTodoState> {
 
 type TodoItemProps = {
   todo: Todo;
-  onCompletedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: string) => void;
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
   return (
     <li>
       <List>
-        {/* <input
-          type="checkbox"
-          checked={todo.completed}
-          onChange={onCompletedChange}
-          data-id={todo.id}
-        />{" "} */}
-        <Checkbox checked={todo.completed} onChange={onCompletedChange} data-id={todo.id} />
-        <span className={classNames(todo.completed && ["line-through", "text-gray-500"])}>
+        <Checkbox checked={todo.completed} onChange={(e) => onCompletedChange(e, todo.id)} />
+        <p className={classNames(todo.completed && ["line-through", "text-gray-500"])}>
           {todo.text}
-        </span>
+        </p>
       </List>
     </li>
   );
@@ -76,14 +71,18 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
 
 type TodoListProps = {
   todos: Todos;
-  onCompletedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: string) => void;
 };
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onCompletedChange }) => {
   return (
     <ul>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} onCompletedChange={onCompletedChange} />
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onCompletedChange={(e) => onCompletedChange(e, todo.id)}
+        />
       ))}
     </ul>
   );
@@ -142,9 +141,8 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
       });
   }
 
-  handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>, id: string) {
     const checked = e.currentTarget.checked;
-    const id = e.currentTarget.dataset.id;
     axios.put(`${TODO_URL}/${id}`, { completed: checked }).then((result) => {
       const copiedTodos = [...this.state.todos];
       copiedTodos.forEach((todo) => {
