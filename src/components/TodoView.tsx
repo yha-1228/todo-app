@@ -60,10 +60,19 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
   return (
     <li>
       <List>
-        <Checkbox checked={todo.completed} onChange={(e) => onCompletedChange(e, todo.id)} />
-        <p className={classNames(todo.completed && ["line-through", "text-gray-500"])}>
+        <Checkbox
+          className="align-middle"
+          checked={todo.completed}
+          onChange={(e) => onCompletedChange(e, todo.id)}
+        />
+        <span
+          className={classNames(
+            "align-middle",
+            todo.completed && ["line-through", "text-gray-500"]
+          )}
+        >
           {todo.text}
-        </p>
+        </span>
       </List>
     </li>
   );
