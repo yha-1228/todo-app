@@ -5,7 +5,7 @@ import { Todos, Todo } from "../interfaces/index";
 import List from "./List";
 import Button from "./Button";
 import TextField from "./TextField";
-import { TODO_URL } from "../application.properties";
+import { TODO_URL } from "../properties";
 import TheCheckbox from "./TheCheckbox";
 import Checkbox from "@material-ui/core/Checkbox";
 
