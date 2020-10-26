@@ -144,14 +144,14 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
   handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>, id: string) {
     const checked = e.currentTarget.checked;
 
-    axios.put(`${TODO_URL}/${id}`, { completed: checked }).then((result) => {
-      const copiedTodos = [...this.state.todos];
+    axios.put(`${TODO_URL}/${id}`, { completed: checked }).then((_) => {
+      const todos = [...this.state.todos];
 
-      copiedTodos.forEach((todo) => {
+      todos.forEach((todo) => {
         if (todo.id === id) todo.completed = checked;
       });
 
-      this.setState({ todos: copiedTodos });
+      this.setState({ todos: todos });
     });
   }
 
