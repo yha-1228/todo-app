@@ -5,6 +5,7 @@ import { Todos, Todo } from "../interfaces/index";
 import List from "./List";
 import Button from "./Button";
 import TextField from "./TextField";
+import Checkbox from "./Checkbox";
 import { TODO_URL } from "../application.properties";
 
 type AddTodoProps = {
@@ -58,12 +59,13 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
   return (
     <li>
       <List>
-        <input
+        {/* <input
           type="checkbox"
           checked={todo.completed}
           onChange={onCompletedChange}
           data-id={todo.id}
-        />{" "}
+        />{" "} */}
+        <Checkbox checked={todo.completed} onChange={onCompletedChange} data-id={todo.id} />
         <span className={classNames(todo.completed && ["line-through", "text-gray-500"])}>
           {todo.text}
         </span>
