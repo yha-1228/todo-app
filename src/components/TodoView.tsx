@@ -7,6 +7,7 @@ import Button from "./Button";
 import TextField from "./TextField";
 import { TODO_URL } from "../properties";
 import Checkbox from "@material-ui/core/Checkbox";
+import { CheckboxProps, rgbToHex, withStyles } from "@material-ui/core";
 
 type AddTodoProps = {
   onAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -56,11 +57,21 @@ type TodoItemProps = {
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
+  const colors = {
+    "gray-400": "#CBD5E0",
+    "apple-default-blue": "rgb(0, 122, 255)",
+  };
+
+  const TodoItemCheckbox = withStyles({
+    root: { color: colors["gray-400"], "&$checked": { color: colors["apple-default-blue"] } },
+    checked: {},
+  })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
+
   return (
     <li>
       <List>
-        <Checkbox
-          className="align-middle"
+        <TodoItemCheckbox
+          className={classNames("align-middle")}
           checked={todo.completed}
           onChange={(e) => onCompletedChange(e, todo.id)}
         />
