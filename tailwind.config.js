@@ -1,3 +1,5 @@
+let defaultConfig = require("tailwindcss/defaultConfig");
+
 module.exports = {
   purge: ["./src/**/*.js", "./src/**/*.ts", "./src/**/*.jsx", "./src/**/*.tsx"],
   theme: {

@@ -6,7 +6,6 @@ import List from "./List";
 import Button from "./Button";
 import TextField from "./TextField";
 import { TODO_URL } from "../properties";
-import TheCheckbox from "./TheCheckbox";
 import Checkbox from "@material-ui/core/Checkbox";
 
 type AddTodoProps = {
