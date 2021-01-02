@@ -15,37 +15,26 @@ type AddTodoProps = {
   newTodoText: string;
 };
 
-type AddTodoState = {};
+const AddTodo: React.FC<AddTodoProps> = (props) => {
+  const { onAddTodoChange, onAddTodoSubmit, newTodoText } = props;
 
-class AddTodo extends React.Component<AddTodoProps, AddTodoState> {
-  constructor(props: Readonly<AddTodoProps>) {
-    super(props);
-    this.handleAddTodoSubmit = this.handleAddTodoSubmit.bind(this);
-  }
+  const handleAddTodoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    onAddTodoSubmit(e);
+  };
 
-  handleAddTodoSubmit(e: React.FormEvent<HTMLFormElement>) {
-    this.props.onAddTodoSubmit(e);
-  }
-
-  render() {
-    return (
-      <List>
-        <form onSubmit={this.handleAddTodoSubmit}>
-          <div className={classNames("inline-block", "pr-3")}>
-            <TextField
-              onChange={this.props.onAddTodoChange}
-              value={this.props.newTodoText}
-              placeholder="Add item"
-            />
-          </div>
-          <div className={classNames("inline-block")}>
-            <Button type="submit">Add</Button>
-          </div>
-        </form>
-      </List>
-    );
-  }
-}
+  return (
+    <List>
+      <form onSubmit={handleAddTodoSubmit}>
+        <div className={classNames("inline-block", "pr-3")}>
+          <TextField onChange={onAddTodoChange} value={newTodoText} placeholder="New ToDo" />
+        </div>
+        <div className={classNames("inline-block")}>
+          <Button type="submit">Add</Button>
+        </div>
+      </form>
+    </List>
+  );
+};
 
 type TodoItemProps = {
   todo: Todo;
