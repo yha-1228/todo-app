@@ -134,7 +134,7 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
   }
 
   handleAddTodoChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ newTodoText: e.currentTarget.value });
+    this.setState({ newTodoText: e.target.value });
   }
 
   handleAddTodoClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -150,8 +150,8 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
   }
 
   handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>, id: number) {
-    const checked = e.currentTarget.checked;
-    console.log(e.currentTarget);
+    const checked = e.target.checked;
+    console.log(checked);
 
     // axios.put(`${TODO_URL}/${id}`, { completed: checked }).then((_) => {
     //   const todos = [...this.state.todos];
