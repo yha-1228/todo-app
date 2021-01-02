@@ -10,8 +10,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { CheckboxProps, withStyles } from "@material-ui/core";
 
 type AddTodoProps = {
-  onAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onAddTodoClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onAddTodoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onAddTodoSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   newTodoText: string;
 };
 
@@ -20,17 +20,17 @@ type AddTodoState = {};
 class AddTodo extends React.Component<AddTodoProps, AddTodoState> {
   constructor(props: Readonly<AddTodoProps>) {
     super(props);
-    this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
+    this.handleAddTodoSubmit = this.handleAddTodoSubmit.bind(this);
   }
 
-  handleAddTodoClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    this.props.onAddTodoClick(e);
+  handleAddTodoSubmit(e: React.FormEvent<HTMLFormElement>) {
+    this.props.onAddTodoSubmit(e);
   }
 
   render() {
     return (
       <List>
-        <form method="post">
+        <form onSubmit={this.handleAddTodoSubmit}>
           <div className={classNames("inline-block", "pr-3")}>
             <TextField
               onChange={this.props.onAddTodoChange}
@@ -39,9 +39,7 @@ class AddTodo extends React.Component<AddTodoProps, AddTodoState> {
             />
           </div>
           <div className={classNames("inline-block")}>
-            <Button type="submit" onClick={this.handleAddTodoClick}>
-              Add
-            </Button>
+            <Button type="submit">Add</Button>
           </div>
         </form>
       </List>
@@ -114,7 +112,7 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
     super(props);
     this.state = { loaded: false, error: null, todos: [], newTodoText: "" };
     this.handleAddTodoChange = this.handleAddTodoChange.bind(this);
-    this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
+    this.handleAddTodoSubmit = this.handleAddTodoSubmit.bind(this);
     this.handleCompletedChange = this.handleCompletedChange.bind(this);
   }
 
@@ -137,7 +135,7 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
     this.setState({ newTodoText: e.target.value });
   }
 
-  handleAddTodoClick(e: React.MouseEvent<HTMLButtonElement>) {
+  handleAddTodoSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const newTodo = { id: null, text: this.state.newTodoText.trim(), completed: false };
 
@@ -175,7 +173,7 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
         <AddTodo
           onAddTodoChange={this.handleAddTodoChange}
           newTodoText={this.state.newTodoText}
-          onAddTodoClick={this.handleAddTodoClick}
+          onAddTodoSubmit={this.handleAddTodoSubmit}
         />
       </>
     );
