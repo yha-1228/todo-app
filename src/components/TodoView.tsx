@@ -41,7 +41,9 @@ type TodoItemProps = {
   onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: number) => void;
 };
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
+const TodoItem: React.FC<TodoItemProps> = (props) => {
+  const { todo, onCompletedChange } = props;
+
   const colors = {
     "gray-400": "#CBD5E0",
     "apple-default-blue": "rgb(0, 122, 255)",
