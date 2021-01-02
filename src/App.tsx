@@ -24,9 +24,9 @@ const App: React.FC = () => {
       </main>
 
       {/* tailwind debug */}
-      <p className="text-apple-default-blue">
+      {/* <p className="text-apple-default-blue">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      </p>
+      </p> */}
     </div>
   );
 };

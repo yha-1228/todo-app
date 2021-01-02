@@ -7,7 +7,7 @@ import Button from "./Button";
 import TextField from "./TextField";
 import { TODO_URL } from "../properties";
 import Checkbox from "@material-ui/core/Checkbox";
-import { CheckboxProps, rgbToHex, withStyles } from "@material-ui/core";
+import { CheckboxProps, withStyles } from "@material-ui/core";
 
 type AddTodoProps = {
   onAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -53,7 +53,7 @@ class AddTodo extends React.Component<AddTodoProps, AddTodoState> {
 
 type TodoItemProps = {
   todo: Todo;
-  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: string) => void;
+  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: number) => void;
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
@@ -90,7 +90,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCompletedChange }) => {
 
 type TodoListProps = {
   todos: Todos;
-  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: string) => void;
+  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: number) => void;
 };
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onCompletedChange }) => {
@@ -160,7 +160,7 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
       });
   }
 
-  handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>, id: string) {
+  handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>, id: number) {
     const checked = e.currentTarget.checked;
 
     axios.put(`${TODO_URL}/${id}`, { completed: checked }).then((_) => {
