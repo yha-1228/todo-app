@@ -13,7 +13,6 @@ type AddTodoProps = {
   onAddTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onAddTodoClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   newTodoText: string;
-  todoInputRef: any;
 };
 
 type AddTodoState = {};
@@ -37,7 +36,6 @@ class AddTodo extends React.Component<AddTodoProps, AddTodoState> {
               onChange={this.props.onAddTodoChange}
               value={this.props.newTodoText}
               placeholder="Add item"
-              ref={this.props.todoInputRef}
             />
           </div>
           <div className={classNames("inline-block")}>
@@ -112,12 +110,9 @@ type TodoViewProps = {};
 type TodoViewState = { loaded: boolean; error: any; todos: Todos; newTodoText: string };
 
 class TodoView extends React.Component<TodoViewProps, TodoViewState> {
-  todoInputRef: React.RefObject<HTMLInputElement>;
-
   constructor(props: Readonly<TodoViewProps>) {
     super(props);
     this.state = { loaded: false, error: null, todos: [], newTodoText: "" };
-    this.todoInputRef = React.createRef<HTMLInputElement>();
     this.handleAddTodoChange = this.handleAddTodoChange.bind(this);
     this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
     this.handleCompletedChange = this.handleCompletedChange.bind(this);
@@ -148,30 +143,25 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
 
     if (newTodo.text.length === 0) return;
 
-    axios
-      .post(TODO_URL, newTodo)
-      .then((result) => {
-        const addedTodo = result.data;
-        this.setState({ todos: [...this.state.todos, addedTodo], newTodoText: "" });
-      })
-      .then(() => {
-        if (!this.todoInputRef.current) return;
-        this.todoInputRef.current.focus();
-      });
+    axios.post(TODO_URL, newTodo).then((result) => {
+      const addedTodo = result.data;
+      this.setState({ todos: [...this.state.todos, addedTodo], newTodoText: "" });
+    });
   }
 
   handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>, id: number) {
     const checked = e.currentTarget.checked;
+    console.log(e.currentTarget);
 
-    axios.put(`${TODO_URL}/${id}`, { completed: checked }).then((_) => {
-      const todos = [...this.state.todos];
+    // axios.put(`${TODO_URL}/${id}`, { completed: checked }).then((_) => {
+    //   const todos = [...this.state.todos];
 
-      todos.forEach((todo) => {
-        if (todo.id === id) todo.completed = checked;
-      });
+    //   todos.forEach((todo) => {
+    //     if (todo.id === id) todo.completed = checked;
+    //   });
 
-      this.setState({ todos: todos });
-    });
+    //   this.setState({ todos: todos });
+    // });
   }
 
   render() {
@@ -186,7 +176,6 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
           onAddTodoChange={this.handleAddTodoChange}
           newTodoText={this.state.newTodoText}
           onAddTodoClick={this.handleAddTodoClick}
-          todoInputRef={this.todoInputRef}
         />
       </>
     );
