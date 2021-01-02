@@ -9,13 +9,13 @@ import { TODO_URL } from "../properties";
 import Checkbox from "@material-ui/core/Checkbox";
 import { CheckboxProps, withStyles } from "@material-ui/core";
 
-type AddTodoProps = {
+type TodoAddFormProps = {
   onAddTodoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onAddTodoSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   newTodoText: string;
 };
 
-const AddTodo: React.FC<AddTodoProps> = (props) => {
+const TodoAddForm: React.FC<TodoAddFormProps> = (props) => {
   const { onAddTodoChange, onAddTodoSubmit, newTodoText } = props;
 
   const handleAddTodoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -159,7 +159,7 @@ class TodoView extends React.Component<TodoViewProps, TodoViewState> {
         ) : (
           <TodoList onCompletedChange={this.handleCompletedChange} todos={this.state.todos} />
         )}
-        <AddTodo
+        <TodoAddForm
           onAddTodoChange={this.handleAddTodoChange}
           newTodoText={this.state.newTodoText}
           onAddTodoSubmit={this.handleAddTodoSubmit}
