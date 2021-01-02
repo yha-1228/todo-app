@@ -4,7 +4,7 @@ import classNames from "classnames";
 import Container from "./components/Container";
 import Title from "./components/Title";
 import Box from "./components/Box";
-import TodoView from "./components/TodoView";
+import TodoApp from "./components/TodoApp/index";
 
 const App: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ const App: React.FC = () => {
       <main>
         <Container>
           <Box>
-            <TodoView />
+            <TodoApp />
           </Box>
         </Container>
       </main>
