@@ -7,10 +7,12 @@ import TodoList from "./TodoList"
 
 type TodoAppState = { loaded: boolean; error: any; todos: Todos; newTodoText: string }
 
+const initialState = { loaded: false, error: null, todos: [], newTodoText: "" }
+
 class TodoApp extends React.Component<{}, TodoAppState> {
   constructor(props: Readonly<{}>) {
     super(props)
-    this.state = { loaded: false, error: null, todos: [], newTodoText: "" }
+    this.state = initialState
     this.handleAddTodoChange = this.handleAddTodoChange.bind(this)
     this.handleAddTodoSubmit = this.handleAddTodoSubmit.bind(this)
     this.handleCompletedChange = this.handleCompletedChange.bind(this)
