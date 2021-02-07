@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { Todos, Todo } from "../../interfaces/index";
-import { TODO_URL } from "../../constants";
+import { Todos, Todo } from "../interfaces/index";
+import { TODO_URL } from "../constants";
 import TodoAddForm from "./TodoAddForm";
 import TodoList from "./TodoList";
 

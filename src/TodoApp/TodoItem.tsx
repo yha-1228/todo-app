@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
-import { Todo } from "../../interfaces/index";
-import List from "../List";
+import { Todo } from "../interfaces/index";
+import List from "../components/List";
 import Checkbox from "@material-ui/core/Checkbox";
 import { CheckboxProps, withStyles } from "@material-ui/core";
 

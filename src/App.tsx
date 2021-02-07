@@ -4,7 +4,7 @@ import classNames from "classnames";
 import Container from "./components/Container";
 import Title from "./components/Title";
 import Box from "./components/Box";
-import TodoApp from "./components/TodoApp/index";
+import TodoApp from "./TodoApp/index";
 
 const App: React.FC = () => {
   return (

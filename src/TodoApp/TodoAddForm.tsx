@@ -1,8 +1,8 @@
 import React from "react";
 import classnames from "classnames";
-import List from "../List";
-import Button from "../Button";
-import TextField from "../TextField";
+import List from "../components/List";
+import Button from "../components/Button";
+import TextField from "../components/TextField";
 
 type TodoAddFormProps = {
   onAddTodoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
