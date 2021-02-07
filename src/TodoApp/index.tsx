@@ -54,10 +54,9 @@ class TodoApp extends React.Component<{}, TodoAppState> {
 
     const text = (this.state.todos.find((todo) => todo.id === id) as Todo).text
 
-    const todos = this.state.todos.map((todo) => ({
-      ...todo,
-      completed: todo.id === id ? e.target.checked : todo.completed,
-    }))
+    const todos = this.state.todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: e.target.checked } : todo
+    )
 
     axios.put(`${TODO_URL}/${id}`, { id, text, completed: e.target.checked }).then(() => {
       this.setState({ todos: todos })
