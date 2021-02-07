@@ -39,6 +39,7 @@ class TodoApp extends React.Component<{}, TodoAppState> {
 
   handleAddTodoSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
     const newTodo = { id: null, text: this.state.newTodoText.trim(), completed: false }
 
     if (newTodo.text.length === 0) return
