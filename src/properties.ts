@@ -1,1 +1,1 @@
-export const TODO_URL: string = "http://localhost:3001/todos";
+export const TODO_URL = "http://localhost:3001/todos";
