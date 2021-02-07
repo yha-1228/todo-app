@@ -1,10 +1,10 @@
 import React from "react";
-import classNames from "classnames";
+import classnames from "classnames";
 
 const TextField: React.FC<any> = (props) => {
   return (
     <input
-      className={classNames(
+      className={classnames(
         "px-2",
         "bg-gray-200",
         "border-2",
