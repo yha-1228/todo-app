@@ -1,10 +1,10 @@
-import React from "react";
-import "./style/tailwind.output.css";
-import classNames from "classnames";
-import Container from "./components/Container";
-import Title from "./components/Title";
-import Box from "./components/Box";
-import TodoApp from "./TodoApp/index";
+import React from "react"
+import "./style/tailwind.output.css"
+import classNames from "classnames"
+import Container from "./components/Container"
+import Title from "./components/Title"
+import Box from "./components/Box"
+import TodoApp from "./TodoApp/index"
 
 const App: React.FC = () => {
   return (
@@ -28,7 +28,7 @@ const App: React.FC = () => {
         Lorem, ipsum dolor sit amet consectetur adipisicing elit.
       </p> */}
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

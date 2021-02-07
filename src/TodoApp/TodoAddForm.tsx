@@ -1,21 +1,21 @@
-import React from "react";
-import classnames from "classnames";
-import List from "../components/List";
-import Button from "../components/Button";
-import TextField from "../components/TextField";
+import React from "react"
+import classnames from "classnames"
+import List from "../components/List"
+import Button from "../components/Button"
+import TextField from "../components/TextField"
 
 type TodoAddFormProps = {
-  onAddTodoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onAddTodoSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  newTodoText: string;
-};
+  onAddTodoChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onAddTodoSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  newTodoText: string
+}
 
 const TodoAddForm: React.FC<TodoAddFormProps> = (props) => {
-  const { onAddTodoChange, onAddTodoSubmit, newTodoText } = props;
+  const { onAddTodoChange, onAddTodoSubmit, newTodoText } = props
 
   const handleAddTodoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    onAddTodoSubmit(e);
-  };
+    onAddTodoSubmit(e)
+  }
 
   return (
     <List>
@@ -28,7 +28,7 @@ const TodoAddForm: React.FC<TodoAddFormProps> = (props) => {
         </div>
       </form>
     </List>
-  );
-};
+  )
+}
 
-export default TodoAddForm;
+export default TodoAddForm

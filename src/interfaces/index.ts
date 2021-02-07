@@ -1,7 +1,7 @@
 export type Todo = {
-  id: number;
-  text: string;
-  completed: boolean;
-};
+  id: number
+  text: string
+  completed: boolean
+}
 
-export type Todos = Todo[];
+export type Todos = Todo[]

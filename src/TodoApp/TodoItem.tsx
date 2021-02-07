@@ -1,27 +1,27 @@
-import React from "react";
-import classnames from "classnames";
-import { Todo } from "../interfaces/index";
-import List from "../components/List";
-import Checkbox from "@material-ui/core/Checkbox";
-import { CheckboxProps, withStyles } from "@material-ui/core";
+import React from "react"
+import classnames from "classnames"
+import { Todo } from "../interfaces/index"
+import List from "../components/List"
+import Checkbox from "@material-ui/core/Checkbox"
+import { CheckboxProps, withStyles } from "@material-ui/core"
 
 type TodoItemProps = {
-  todo: Todo;
-  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: number) => void;
-};
+  todo: Todo
+  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: number) => void
+}
 
 const TodoItem: React.FC<TodoItemProps> = (props) => {
-  const { todo, onCompletedChange } = props;
+  const { todo, onCompletedChange } = props
 
   const colors = {
     "gray-400": "#CBD5E0",
     "apple-default-blue": "rgb(0, 122, 255)",
-  };
+  }
 
   const TodoItemCheckbox = withStyles({
     root: { color: colors["gray-400"], "&$checked": { color: colors["apple-default-blue"] } },
     checked: {},
-  })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
+  })((props: CheckboxProps) => <Checkbox color="default" {...props} />)
 
   return (
     <li>
@@ -41,7 +41,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
         </span>
       </List>
     </li>
-  );
-};
+  )
+}
 
-export default TodoItem;
+export default TodoItem

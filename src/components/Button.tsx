@@ -1,5 +1,5 @@
-import React from "react";
-import classNames from "classnames";
+import React from "react"
+import classNames from "classnames"
 
 const Button: React.FC<any> = (props) => {
   return (
@@ -22,7 +22,7 @@ const Button: React.FC<any> = (props) => {
     >
       {props.children}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

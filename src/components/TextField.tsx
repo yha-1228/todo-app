@@ -1,5 +1,5 @@
-import React from "react";
-import classnames from "classnames";
+import React from "react"
+import classnames from "classnames"
 
 const TextField: React.FC<any> = (props) => {
   return (
@@ -18,7 +18,7 @@ const TextField: React.FC<any> = (props) => {
       type="text"
       {...props}
     />
-  );
-};
+  )
+}
 
-export default TextField;
+export default TextField

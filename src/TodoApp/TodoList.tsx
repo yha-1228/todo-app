@@ -1,11 +1,11 @@
-import React from "react";
-import { Todos } from "../interfaces/index";
-import TodoItem from "./TodoItem";
+import React from "react"
+import { Todos } from "../interfaces/index"
+import TodoItem from "./TodoItem"
 
 type TodoListProps = {
-  todos: Todos;
-  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: number) => void;
-};
+  todos: Todos
+  onCompletedChange: (e: React.ChangeEvent<HTMLInputElement>, id: number) => void
+}
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onCompletedChange }) => {
   return (
@@ -18,7 +18,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onCompletedChange }) => {
         />
       ))}
     </ul>
-  );
-};
+  )
+}
 
-export default TodoList;
+export default TodoList

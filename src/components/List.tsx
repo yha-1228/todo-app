@@ -1,5 +1,5 @@
-import React from "react";
-import classnames from "classnames";
+import React from "react"
+import classnames from "classnames"
 
 const List: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -9,7 +9,7 @@ const List: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default List;
+export default List
