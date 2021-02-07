@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import classnames from "classnames";
 import { Todo } from "../../interfaces/index";
 import List from "../List";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -27,12 +27,12 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
     <li>
       <List>
         <TodoItemCheckbox
-          className={classNames("align-middle")}
+          className={classnames("align-middle")}
           checked={todo.completed}
           onChange={(e) => onCompletedChange(e, todo.id)}
         />
         <span
-          className={classNames(
+          className={classnames(
             "align-middle",
             todo.completed && ["line-through", "text-gray-500"]
           )}

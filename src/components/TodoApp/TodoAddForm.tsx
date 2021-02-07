@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import classnames from "classnames";
 import List from "../List";
 import Button from "../Button";
 import TextField from "../TextField";
@@ -20,10 +20,10 @@ const TodoAddForm: React.FC<TodoAddFormProps> = (props) => {
   return (
     <List>
       <form onSubmit={handleAddTodoSubmit}>
-        <div className={classNames("inline-block", "pr-3")}>
+        <div className={classnames("inline-block", "pr-3")}>
           <TextField onChange={onAddTodoChange} value={newTodoText} placeholder="New Todo" />
         </div>
-        <div className={classNames("inline-block")}>
+        <div className={classnames("inline-block")}>
           <Button type="submit">Add</Button>
         </div>
       </form>
