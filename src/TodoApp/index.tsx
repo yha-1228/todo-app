@@ -50,18 +50,18 @@ class TodoApp extends React.Component<{}, TodoAppState> {
   }
 
   handleCompletedChange(e: React.ChangeEvent<HTMLInputElement>, id: number) {
-    const checked = e.target.checked
     const text = (this.state.todos.find((todo) => todo.id === id) as Todo).text
 
-    axios.put(`${TODO_URL}/${id}`, { id: null, text: text, completed: checked }).then(() => {
-      const todos = [...this.state.todos]
+    axios
+      .put(`${TODO_URL}/${id}`, { id: null, text: text, completed: e.target.checked })
+      .then(() => {
+        const todos = this.state.todos.map((todo) => ({
+          ...todo,
+          completed: todo.id === id ? e.target.checked : todo.completed,
+        }))
 
-      todos.forEach((todo) => {
-        if (todo.id === id) todo.completed = checked
+        this.setState({ todos: todos })
       })
-
-      this.setState({ todos: todos })
-    })
   }
 
   render() {
@@ -70,13 +70,15 @@ class TodoApp extends React.Component<{}, TodoAppState> {
         {!this.state.loaded ? (
           <p>Loading...</p>
         ) : (
-          <TodoList onCompletedChange={this.handleCompletedChange} todos={this.state.todos} />
+          <>
+            <TodoList onCompletedChange={this.handleCompletedChange} todos={this.state.todos} />
+            <TodoAddForm
+              onAddTodoChange={this.handleAddTodoChange}
+              newTodoText={this.state.newTodoText}
+              onAddTodoSubmit={this.handleAddTodoSubmit}
+            />
+          </>
         )}
-        <TodoAddForm
-          onAddTodoChange={this.handleAddTodoChange}
-          newTodoText={this.state.newTodoText}
-          onAddTodoSubmit={this.handleAddTodoSubmit}
-        />
       </>
     )
   }
