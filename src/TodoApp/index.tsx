@@ -22,10 +22,10 @@ class TodoApp extends React.Component<{}, TodoAppState> {
     axios
       .get(url)
       .then((result) => {
-        this.setState({ loaded: true, error: null, todos: result.data })
+        this.setState({ loaded: true, todos: result.data })
       })
       .catch((result) => {
-        this.setState({ loaded: true, error: result, todos: [] })
+        this.setState({ loaded: true, error: result })
       })
   }
 
