@@ -5,12 +5,10 @@ import { TODO_URL } from "../constants";
 import TodoAddForm from "./TodoAddForm";
 import TodoList from "./TodoList";
 
-type TodoAppProps = {};
-
 type TodoAppState = { loaded: boolean; error: any; todos: Todos; newTodoText: string };
 
-class TodoApp extends React.Component<TodoAppProps, TodoAppState> {
-  constructor(props: Readonly<TodoAppProps>) {
+export default class TodoApp extends React.Component<{}, TodoAppState> {
+  constructor(props: Readonly<{}>) {
     super(props);
     this.state = { loaded: false, error: null, todos: [], newTodoText: "" };
     this.handleAddTodoChange = this.handleAddTodoChange.bind(this);
@@ -81,5 +79,3 @@ class TodoApp extends React.Component<TodoAppProps, TodoAppState> {
     );
   }
 }
-
-export default TodoApp;
