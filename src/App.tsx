@@ -22,11 +22,6 @@ const App: React.FC = () => {
           </Box>
         </Container>
       </main>
-
-      {/* tailwind debug */}
-      {/* <p className="text-apple-default-blue">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      </p> */}
     </div>
   )
 }
