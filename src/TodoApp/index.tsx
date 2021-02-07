@@ -7,7 +7,7 @@ import TodoList from "./TodoList"
 
 type TodoAppState = { loaded: boolean; error: any; todos: Todos; newTodoText: string }
 
-export default class TodoApp extends React.Component<{}, TodoAppState> {
+class TodoApp extends React.Component<{}, TodoAppState> {
   constructor(props: Readonly<{}>) {
     super(props)
     this.state = { loaded: false, error: null, todos: [], newTodoText: "" }
@@ -79,3 +79,5 @@ export default class TodoApp extends React.Component<{}, TodoAppState> {
     )
   }
 }
+
+export default TodoApp
